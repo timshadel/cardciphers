@@ -1,7 +1,9 @@
 require './deck'
 require './coder'
+require './cipher'
 
 class Solitaire
+  include Cipher
 
   def initialize deck=Deck.new(:use_jokers)
     @deck = deck
@@ -66,21 +68,6 @@ class Solitaire
       process
       @deck.count_cut i+1
     end
-  end
-
-  def guarantee &block
-    begin
-      n = yield
-    end while n == 53
-    n
-  end
-
-  def next
-    guarantee { self.process }
-  end
-
-  def prev
-    guarantee { self.unprocess }
   end
 
 end

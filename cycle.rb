@@ -1,7 +1,9 @@
 require './deck'
 require './coder'
+require './cipher'
 
 class Cycle
+  include Cipher
 
   def initialize deck=Deck.new
     @deck = deck
@@ -36,25 +38,6 @@ class Cycle
       process
       # @deck.inverted_count_cut i
     end
-  end
-
-  def guarantee &block
-    begin
-      n = yield
-    end while n == 53
-    n
-  end
-
-  def next
-    guarantee { self.process }
-  end
-
-  def prev
-    guarantee { self.unprocess }
-  end
-
-  def to_s
-    @deck.to_s
   end
 
 end

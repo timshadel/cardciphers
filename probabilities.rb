@@ -3,7 +3,7 @@ require './solitaire'
 require './talon'
 require './cycle'
 
-cipher = Cycle.new # Solitaire.new
+cipher = Talon.new # Solitaire.new
 cipher.iv Coder.encode("random")
 
 counts = {}
