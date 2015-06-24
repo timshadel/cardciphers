@@ -1,0 +1,17 @@
+What do we want to communicate?
+===============================
+
+Address - numbers, #
+phone - numbers, -()
+web - :/?&=#
+twitter - @
+email - @.
+math - +-%,.  [recipes,finance]
+money - numbers, $,.%
+boolean - !
+
+Adding these 26 characters gives us lots more freedom in communicating
+without changing the 52-card ciphers. Separating encoding from encryption
+lets us do this seamlessly.
+
+0123456789!@#$%&()-=+:,./?
