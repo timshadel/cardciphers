@@ -24,7 +24,7 @@ class Talon
   end
 
   def step2
-    (0..3).each do |i|
+    0.upto(3).each do |i|
       @deck.fill i
     end
   end
