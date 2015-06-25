@@ -19,4 +19,8 @@ module Cipher
     @deck.to_s
   end
 
+  def shuffle!
+    @deck.shuffle!
+  end
+
 end
