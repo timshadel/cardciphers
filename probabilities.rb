@@ -4,7 +4,7 @@ require './talon'
 require './cycle'
 
 cipher = Talon.new # Solitaire.new
-cipher.iv Coder.encode("random")
+# cipher.iv Coder.encode("random")
 
 counts = {}
 times = 100_000.0

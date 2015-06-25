@@ -48,7 +48,7 @@ class Talon
   end
 
   def output
-    @deck[@deck.first - 1]
+    @deck[(@deck.first + @deck.last) % 52]
   end
 
   def process
