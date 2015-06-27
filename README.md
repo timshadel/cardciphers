@@ -39,15 +39,48 @@ They must be used only once, or the security of every message encrypted with tha
 Each algorithms requires a description of how to manipulate the deck. Standardizing those instructions requires
 describing each operation so that they may be performed correctly given any algorithm we are coding.
 
+_**cut** (number)_<br/>
+Remove the _number_ of cards from the top of the deck and place them, in order, at the bottom of the deck.
+
+_**bottom count cut** (number)_<br/>
+Remove the _number_ of cards from the top of the deck and place them, in order, just above the last
+card of the deck.
+
 _**deck orientation**_<br/>
 By convention, unless otherwise specified the deck is held face up, with _top_
 referring to the card you can see at the top of the deck, and _bottom_ referring to the card closest to your
 hand at the bottom of the deck.
 
-_**advance** (specific card)_<br/>
-Locate that card within the deck, then move it one position closer to the bottom of the deck. (_what
-happens when at the bottom of the deck?_)
-
 _**discard** (optional pile #)_<br/>
 Take the top card of the deck and place it face up in a discard pile. If more than one pile is used,
 then a discard pile number must be specified.
+
+_**gather** (optional pile #)_<br/>
+Take all cards from a discard pile and place them at the back of the deck. If more than one pile is
+used, then a discard pile number must be specified.
+
+_**solitaire advance** (specific card)_<br/>
+Locate that card within the deck, then move it one position closer to the bottom of the deck. If it
+is at the bottom of the deck, place it _below_ the first card of the deck.
+
+_**triple cut** (card A, card B)_<br/>
+Locate cards A and B within the deck. Those two cards and all cards in between them remain as they are.
+The stacks above and below them are swapped while maintaining their respective ordering.
+
+## Values
+
+Each card represents several values that may be used by an algorithm.
+
+_**color** (card)_<br/>
+The color of the given card, red or black.
+
+_**face value** (card)_<br/>
+The numeric value of the card within its suit. Aces have face value of 1, kings are 13.
+
+_**suit** (card)_<br/>
+The suit of the given card, suits ordered by bridge order (alphabetically): clubs, diamonds, hearts, spades.
+
+_**value** (card)_<br/>
+The numeric value of the card when counting from 1 to that card in a standard bridge ordered deck.
+The ace of clubs has value 1, the king of spades has value 52.
+
