@@ -38,6 +38,18 @@ module Steps
     end
   end
 
+  module StandardCut
+    def cut length
+      top = @cards.slice! 0, length
+      @cards.insert -1, *top
+    end
+
+    def uncut length
+      top = @cards.slice! @cards.length-length, length
+      @cards.insert 0, *top
+    end
+  end
+
   module CountCut
     def count_cut length
       top = @cards.slice! 0, length
@@ -111,6 +123,7 @@ class Deck
   include Steps::Advance
   include Steps::TripleCut
   include Steps::CountCut
+  include Steps::StandardCut
   include Steps::Discard
   include Steps::Gather
   include Steps::DiscardFill

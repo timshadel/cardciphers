@@ -68,7 +68,9 @@ class Talon
   def iv items
     items.each do |i|
       process
-      @deck.inverted_count_cut i
+      k = (i + @deck.last) % 52
+      puts "(#{i} + #{@deck.last}) % 52 = #{k}"
+      @deck.cut k
     end
   end
 
