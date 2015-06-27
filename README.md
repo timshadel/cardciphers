@@ -5,6 +5,10 @@ Card ciphers are fun because they typically have a large enough key space that p
 won't work, and their pseudo-random keystreams are close enough to random that basic methods like the frequency
 analysis you use in newspaper cryptograms won't work either.
 
+![A diagram of the process used by card ciphers to turn regular text into encrypted alphabetic strings.][packing]
+
+[packing]: ./cardcipher-packaging.png "Overview of card cipher encryption and decryption process"
+
 ## Definitions
 
 The rigor of the terminology used in describing card ciphers varies, and so I want to establish some definitions
@@ -33,7 +37,7 @@ They must be used only once, or the security of every message encrypted with tha
 ## Operations
 
 Each algorithms requires a description of how to manipulate the deck. Standardizing those instructions requires
-describing each operation so that they may be performed correctly given any algorithm we are coding. 
+describing each operation so that they may be performed correctly given any algorithm we are coding.
 
 _**deck orientation**_<br/>
 By convention, unless otherwise specified the deck is held face up, with _top_
