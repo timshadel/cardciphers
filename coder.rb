@@ -25,7 +25,7 @@ module Coder
   end
 
   def self.decode numbers
-    numbers.map {|e| PLAINCODE[e - 1] }.join('').scan(/.{1,5}/).join(' ')
+    numbers.map {|e| PLAINCODE[e - 1] }.join('') #.scan(/.{1,5}/).join(' ')
   end
 
   def self.cryptcode numbers

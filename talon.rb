@@ -69,8 +69,8 @@ class Talon
     items.each do |i|
       process
       k = (i + @deck.last) % 52
-      puts "(#{i} + #{@deck.last}) % 52 = #{k}"
       @deck.cut k
+      # puts @deck
     end
   end
 
