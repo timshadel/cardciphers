@@ -3,18 +3,18 @@ require './solitaire'
 require './talon'
 
 key = Coder.uncryptcode(ARGV[0])
-plain = ARGV[1..-1].join(' ')
+ciphertext = ARGV[1..-1].join(' ')
 
 cipher = Talon.new # Solitaire.new
 cipher.iv key
-clean = Coder.plain plain
+clean = ciphertext.gsub(' ', '')
 puts clean
-plain = Coder.encode plain
-ciphertext = []
-plain.each do |p|
+ciphertext = Coder.uncryptcode clean
+plaintext = []
+ciphertext.each do |p|
   k = cipher.next
   # puts "(#{k} + #{p}) % 52 = #{(p + k) % 52}"
-  ciphertext << (p + k) % 52
+  plaintext << (p - k) % 52
 end
-encrypted = Coder.cryptcode ciphertext
-puts encrypted
+decrypted = Coder.decode plaintext
+puts decrypted
