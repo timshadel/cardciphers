@@ -87,6 +87,21 @@ module Steps
     end
   end
 
+  module TopGather
+    def topgather pile
+      while @discards[pile].count > 0
+        @cards.unshift @discards[pile].pop
+      end
+    end
+
+    def untopgather pile
+      # TODO: broken
+      self.face(-1).times do
+        @discards[pile].push @cards.shift
+      end
+    end
+  end
+
   module DiscardFill
     def fill pile
       count = top_of_pile_face(pile) - 1
@@ -144,11 +159,13 @@ class Deck
   include Steps::StandardCut
   include Steps::Discard
   include Steps::Gather
+  include Steps::TopGather
   include Steps::DiscardFill
   include Steps::HorizontalFill
   include Steps::InvertedCountCut
 
   NAMES = %w{AC 2C 3C 4C 5C 6C 7C 8C 9C TC JC QC KC AD 2D 3D 4D 5D 6D 7D 8D 9D TD JD QD KD AH 2H 3H 4H 5H 6H 7H 8H 9H TH JH QH KH AS 2S 3S 4S 5S 6S 7S 8S 9S TS JS QS KS}
+  SUITS = %w{00 01 10 11}
 
   def initialize opts=:none
     @cards = Array(1..52)
@@ -182,6 +199,10 @@ class Deck
     self[index] % 13
   end
 
+  def suit index
+    (self[index] - 1) / 13
+  end
+
   def top_of_pile index
     value = @discards[index].last
     value = 53 if value == 'A' || value == 'B'
@@ -197,6 +218,11 @@ class Deck
     # @discards.each do |pile|
     #   str += "\n- #{pile.to_s}"
     # end
+    str
+  end
+
+  def to_suits
+    str = @cards.map { |i| SUITS[(i-1)/13] }.join('').scan(/../).join(' ')
     str
   end
 
