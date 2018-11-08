@@ -1,6 +1,7 @@
 require './coder'
 require './solitaire'
 require './talon'
+require './double'
 require './cycle'
 
 # cipher = Talon.new # Solitaire.new
@@ -12,7 +13,7 @@ runs = 1_000
 run_size = 20
 expected = runs*run_size
 (1..runs).each do |run|
-  cipher = Talon.new # Solitaire.new
+  cipher = DoublePointers.new # Talon.new # Solitaire.new
   cipher.shuffle!
   (1..52*run_size).each do |i|
     n = cipher.next

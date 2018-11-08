@@ -85,6 +85,12 @@ module Steps
         @discards[pile].unshift @cards.pop
       end
     end
+
+    def ungatherFull pile
+      13.times do
+        @discards[pile].unshift @cards.pop
+      end
+    end
   end
 
   module TopGather
@@ -136,6 +142,43 @@ module Steps
     end
   end
 
+  module Equalize
+    def equalize
+      last_pile = @discards.length - 1
+      1.upto(13) do |i|
+        0.upto(last_pile) do |pile|
+          if @discards[pile].count < i
+            discard pile
+          end
+        end
+      end
+    end
+
+    def unequalize
+      last_pile = @discards.length - 1
+      13.downto(1) do |i|
+        last_pile.downto(0) do |pile|
+          expected = top_of_pile_face(pile)
+          if @discards[pile].count > expected
+            undiscard pile
+          end
+        end
+      end
+    end
+  end
+
+  module BringToFront
+    def bringToFront index
+      card = @cards.delete_at index
+      @cards.insert 0, card
+    end
+
+    def unBringToFront index
+      card = @cards.delete_at 0
+      @cards.insert index, card
+    end
+  end
+
   module InvertedCountCut
     def inverted_count_cut length
       top = @cards.slice! 0, length
@@ -162,19 +205,37 @@ class Deck
   include Steps::TopGather
   include Steps::DiscardFill
   include Steps::HorizontalFill
+  include Steps::Equalize
+  include Steps::BringToFront
   include Steps::InvertedCountCut
 
   NAMES = %w{AC 2C 3C 4C 5C 6C 7C 8C 9C TC JC QC KC AD 2D 3D 4D 5D 6D 7D 8D 9D TD JD QD KD AH 2H 3H 4H 5H 6H 7H 8H 9H TH JH QH KH AS 2S 3S 4S 5S 6S 7S 8S 9S TS JS QS KS}
   SUITS = %w{00 01 10 11}
 
   def initialize opts=:none
-    @cards = Array(1..52)
-    @cards = @cards + ['A','B'] if opts == :use_jokers
+    @totalCount = 52
+    @cards = Array(1..@totalCount)
+    if opts == :use_jokers
+      @cards = @cards + ['A','B']
+      @totalCount += 2
+    end
     @discards = []
+  end
+
+  def self.name cards
+    cards.map {|e| NAMES[e-1]}.join(' ')
   end
 
   def shuffle!
     @cards.shuffle!
+  end
+
+  def discards
+    @discards
+  end
+
+  def totalCount
+    @totalCount
   end
 
   def length
@@ -224,6 +285,21 @@ class Deck
   def to_suits
     str = @cards.map { |i| SUITS[(i-1)/13] }.join('').scan(/../).join(' ')
     str
+  end
+
+  def to_discard_s
+    str = ""
+    max_length = @discards.map {|pile| pile.length }.max
+    max_length.times do |row|
+      0.upto(@discards.length) do |col|
+        val = @discards[row][col]
+        if !val.nil?
+          str += val.to_s.rjust(4)
+        else
+          str += "    "
+        end
+      end
+    end
   end
 
 end
